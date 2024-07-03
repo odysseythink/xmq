@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+
+package pbapi;
+
+message PingRequest {
+	PeerInfo peer = 1; 
+}
+
+message PingReply {
+  string err = 1;
+  string msg = 2;
+}
+
+message IdentifyRequest {
+  PeerInfo peer = 1;
+}
+
+message IdentifyReply {
+  string err = 1;
+  int32 tcp_port = 2;
+  int32 http_port = 3;
+  string version = 4;
+  string broadcast_address = 5;
+  string hostname = 6;
+}
+
+message Channel {
+	uint64 requeue_count = 1;
+	uint64 message_count = 2;
+	uint64 timeout_count = 3;
+	string topic_name = 4;
+	string name = 5;
+	int32 exit_flag = 6;
+	int32 paused = 7;
+	bool ephemeral = 8;
+}
+
+message Topic {
+	uint64 message_count = 1;
+	uint64 message_bytes = 2;
+	string name = 3;
+	repeated Channel channels = 4;
+	int32 exit_flag = 5;
+	bool ephemeral = 6;
+	int32 paused = 7;
+}
+
+message PeerInfo {
+	string id = 1;
+	string remote_address = 2;
+	string hostname = 3;
+	string broadcast_address = 4;
+	int32 tcp_port = 5;
+	int32 http_port = 6;
+	string version = 7;
+	int64 last_update = 8;
+	string raft_state = 9;
+}

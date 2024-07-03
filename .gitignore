@@ -1,0 +1,54 @@
+/build/
+dist/
+.cover/
+profile/
+
+# xmqd data from testing
+*.dat
+
+# xmqadmin
+node_modules
+
+# apps
+apps/xmqlookupd/xmqlookupd
+apps/xmqd/xmqd
+apps/xmqadmin/xmqadmin
+apps/xmq_to_xmq/xmq_to_xmq
+apps/xmq_to_file/xmq_to_file
+apps/xmq_pubsub/xmq_pubsub
+apps/xmq_to_http/xmq_to_http
+apps/xmq_tail/xmq_tail
+apps/xmq_stat/xmq_stat
+apps/to_xmq/to_xmq
+bench/bench_reader/bench_reader
+bench/bench_writer/bench_writer
+bench/bench_channels/bench_channels
+
+# Go.gitignore
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+
+
+# vim stuff
+*.sw[op]

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+
+package pbapi;
+
+import "common.proto";
+
+// message PingRequest {
+// }
+
+// message PingReply {
+//   string err = 1;
+//   string msg = 2;
+// }
+
+// message IdentifyRequest {
+//   string id = 1;
+//   string remote_address = 2;
+// 	string hostname = 3;
+// 	string broadcast_address = 4;
+// 	int32  tcp_port = 5;
+// 	int32  http_port = 6;
+// 	string version = 7;
+// }
+
+// message IdentifyReply {
+//   string err = 1;
+//   int32 tcp_port = 2;
+//   int32 http_port = 3;
+//   string version = 4;
+//   string broadcast_address = 5;
+//   string hostname = 6;
+// }
+
+message UnregisterRequest {
+  string id = 1;
+  string topic_name = 2;
+  string channel_name = 3;
+}
+
+message UnregisterReply {
+  string err = 1;
+  string msg = 2;
+}
+
+message RegisterRequest {
+  string id = 1;
+  string topic_name = 2;
+  string channel_name = 3;
+}
+
+message RegisterReply {
+  string err = 1;
+  string msg = 2;
+}
+
+service xmqlookupd {
+  rpc Ping (PingRequest) returns (PingReply) {}
+  rpc Identify(IdentifyRequest) returns (IdentifyReply) {}
+  rpc Unregister(UnregisterRequest) returns (UnregisterReply) {}
+  rpc Register(RegisterRequest) returns (RegisterReply) {}
+}
+
+

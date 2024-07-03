@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Bot_cms=LanyouBotSwagger
+
+if [ $# != 1 ]; then
+	echo "param count["$#"] err 1, format as ./xmq_util type[start | stop | restart]"
+	exit
+fi
+
+if [ $1 = "start" ]; then
+	nohup ./xmqlookupd -config xmqlookupd.cfg >> xmqlookupd.out 2>&1 &
+	sleep 1
+	nohup ./xmqd -config xmqd-1.cfg >> xmqd-1.out 2>&1 &
+	nohup ./xmqd -config xmqd-2.cfg >> xmqd-2.out 2>&1 &
+	nohup ./xmqd -config xmqd-3.cfg >> xmqd-3.out 2>&1 &
+	sleep 1
+	nohup ./xmqadmin -config xmqadmin.cfg >> xmqadmin.out 2>&1 &
+elif [ $1 = "restart" ]; then
+	Pid=`ps -ef | grep ./xmqlookupd | grep -v "grep" | awk -F ' ' '{print $2}'`
+	kill -15 ${Pid}
+	Pid=`ps -ef | grep ./xmqd | grep -v "grep" | awk -F ' ' '{print $2}'`
+	kill -15 ${Pid}
+	Pid=`ps -ef | grep ./xmqadmin | grep -v "grep" | awk -F ' ' '{print $2}'`
+	kill -15 ${Pid}	
+	sleep 3
+	nohup ./xmqlookupd -config xmqlookupd.cfg >> xmqlookupd.out 2>&1 &
+	sleep 1
+	nohup ./xmqd -config xmqd-1.cfg >> xmqd-1.out 2>&1 &
+	nohup ./xmqd -config xmqd-2.cfg >> xmqd-2.out 2>&1 &
+	nohup ./xmqd -config xmqd-3.cfg >> xmqd-3.out 2>&1 &
+	sleep 1
+	nohup ./xmqadmin -config xmqadmin.cfg >> xmqadmin.out 2>&1 &	
+	# pkill -9 ${Bot_cms}
+	# nohup ./${Bot_cms}  >> ${Bot_cms}.out 2>&1 &
+elif [ $1 = "stop" ]; then
+	Pid=`ps -ef | grep ./xmqlookupd | grep -v "grep" | awk -F ' ' '{print $2}'`
+	kill -15 ${Pid}
+	Pid=`ps -ef | grep ./xmqd | grep -v "grep" | awk -F ' ' '{print $2}'`
+	kill -15 ${Pid}
+	Pid=`ps -ef | grep ./xmqadmin | grep -v "grep" | awk -F ' ' '{print $2}'`
+	kill -15 ${Pid}	
+	sleep 3
+	# echo ${Bot_cms}" stop "${Bot_cms}"..."
+	
+	# Pid=`ps -ef | grep ./${Bot_cms} | grep -v "grep" | awk -F ' ' '{print $2}'`
+    #             if [ -n "${Pid}" ]; then
+	# 	    kill -9 ${Pid}	
+    #             fi
+
+else
+	echo "param err, format as ./xmq_util.sh type[start | stop | restart]"
+	exit
+fi	
+
